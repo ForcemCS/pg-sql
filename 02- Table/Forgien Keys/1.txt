@@ -1,0 +1,48 @@
+有船舶boats和员工members两张表，属于一对多的关系。
+我们应该为boats,members,创建两个主键。并为members创建foreign key,指向boats
+
+
+## 生成primary key
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(50)
+);
+
+INSERT INTO users (username) 
+VALUES
+  ('Alice');
+  
+INSERT INTO users (username)
+VALUES
+    ('monahan93'),
+    ('pferrer'),
+    ('si93onis'),
+    ('99stroman'); 
+	
+## 生成foreign key
+
+CREATE TABLE photos (
+  id SERIAL PRIMARY KEY,
+  url VARCHAR(50),
+  user_id INTEGER REFERENCES users(id)
+);
+
+INSERT INTO photos (url, user_id)
+VALUES
+	('http://one.jpg', 4);
+	
+
+
+SELECT url, username FROM photos
+JOIN users ON users.id = photos.user_id;
+
+
+
+--------------------
+-- Create table called 'boats'
+CREATE TABLE boats (
+    -- Note that this environment doesn't support 'SERIAL' keyword
+    -- so 'AUTOINCREMENT' is used instead. Postgres always uses 'SERIAL'
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR
+);
